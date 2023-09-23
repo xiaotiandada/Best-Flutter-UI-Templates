@@ -19,6 +19,17 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     animationController = AnimationController(
         duration: const Duration(milliseconds: 2000), vsync: this);
     super.initState();
+
+    // 在页面打开时自动跳转到第二个页面
+    Future.delayed(Duration.zero, () {
+      print('start');
+      Navigator.push(
+        context,
+        MaterialPageRoute<dynamic>(
+          builder: (BuildContext context) => homeList[2].navigateScreen!,
+        ),
+      );
+    });
   }
 
   Future<bool> getData() async {
@@ -135,7 +146,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               child: Padding(
                 padding: const EdgeInsets.only(top: 4),
                 child: Text(
-                  'Flutter UI',
+                  'Flutter UI 3',
                   style: TextStyle(
                     fontSize: 22,
                     color: isLightMode ? AppTheme.darkText : AppTheme.white,

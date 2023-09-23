@@ -59,10 +59,22 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
   void addAllListData() {
     const int count = 9;
 
+    // 轮播
+    listViews.add(Container(
+      padding: EdgeInsets.only(left: 24, right: 24),
+      child: const Text("轮播图"),
+    ));
+
+    // 新作品最佳
+    listViews.add(Container(
+      padding: EdgeInsets.only(left: 24, right: 24),
+      child: const Text("新作"),
+    ));
+
     listViews.add(
       TitleView(
-        titleTxt: 'Mediterranean diet',
-        subTxt: 'Details',
+        titleTxt: 'Mediterranean diet 1',
+        subTxt: 'Details 1',
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController!,
             curve:
