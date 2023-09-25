@@ -1,11 +1,40 @@
 import 'package:best_flutter_ui_templates/fitness_app/ui_view/body_measurement.dart';
 import 'package:best_flutter_ui_templates/fitness_app/ui_view/glass_view.dart';
+import 'package:best_flutter_ui_templates/fitness_app/ui_view/area_list_view.dart';
 import 'package:best_flutter_ui_templates/fitness_app/ui_view/mediterranean_diet_view.dart';
 import 'package:best_flutter_ui_templates/fitness_app/ui_view/title_view.dart';
 import 'package:best_flutter_ui_templates/fitness_app/fitness_app_theme.dart';
 import 'package:best_flutter_ui_templates/fitness_app/my_diary/meals_list_view.dart';
 import 'package:best_flutter_ui_templates/fitness_app/my_diary/water_view.dart';
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+
+Widget _buildDecoratedImage(String src) => Expanded(
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(width: 10, color: Colors.black38),
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
+        ),
+        margin: const EdgeInsets.all(4),
+        child: CachedNetworkImage(
+          imageUrl: src,
+          placeholder: (BuildContext context, String url) => Container(
+            width: 320,
+            height: 240,
+            color: Colors.purple,
+          ),
+        ),
+      ),
+    );
+
+Widget _buildImageRow() => Row(
+      children: [
+        _buildDecoratedImage(
+            'https://i.pinimg.com/736x/d4/6b/9d/d46b9d8a716b1e0fac61337f3f5c0d59.jpg'),
+        _buildDecoratedImage(
+            'https://i.pinimg.com/736x/d4/6b/9d/d46b9d8a716b1e0fac61337f3f5c0d59.jpg'),
+      ],
+    );
 
 class MyDiaryScreen extends StatefulWidget {
   const MyDiaryScreen({Key? key, this.animationController}) : super(key: key);
@@ -60,16 +89,52 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
     const int count = 9;
 
     // 轮播
+    listViews.add(
+      TitleView(
+        titleTxt: '轮播图',
+        subTxt: '更多',
+        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+            parent: widget.animationController!,
+            curve:
+                Interval((1 / count) * 0, 1.0, curve: Curves.fastOutSlowIn))),
+        animationController: widget.animationController!,
+      ),
+    );
+
     listViews.add(Container(
-      padding: EdgeInsets.only(left: 24, right: 24),
-      child: const Text("轮播图"),
+      decoration: const BoxDecoration(
+        color: Colors.black26,
+      ),
+      child: Column(
+        children: [
+          _buildImageRow(),
+          _buildImageRow(),
+        ],
+      ),
     ));
 
     // 新作品最佳
-    listViews.add(Container(
-      padding: EdgeInsets.only(left: 24, right: 24),
-      child: const Text("新作"),
-    ));
+    listViews.add(
+      TitleView(
+        titleTxt: '新作',
+        subTxt: '更多',
+        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+            parent: widget.animationController!,
+            curve:
+                Interval((1 / count) * 0, 1.0, curve: Curves.fastOutSlowIn))),
+        animationController: widget.animationController!,
+      ),
+    );
+    listViews.add(
+      AreaListView(
+        mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
+            CurvedAnimation(
+                parent: widget.animationController!,
+                curve: Interval((1 / count) * 5, 1.0,
+                    curve: Curves.fastOutSlowIn))),
+        mainScreenAnimationController: widget.animationController!,
+      ),
+    );
 
     listViews.add(
       TitleView(
